@@ -7,7 +7,7 @@ export default {
       colors: {
         primary: "#E63946",
         secondary: "#FF6F61",
-        background: "#FFFFFF",
+        background: "#F9F9E0",
         "secondary-background": "#F5F5F5",
         "highlighted-background": "#FFD3D3",
         "primary-text": "#333333",
@@ -28,7 +28,7 @@ export default {
         "dark-background": "#121212",
         "dark-secondary-background": "#1E1E1E",
         "dark-highlighted-background": "#2C2C2C",
-        "dark-primary-text": "#FFFFFF",
+        "dark-primary-text": "#E0E0E0",
         "dark-secondary-text": "#CCCCCC",
         "dark-disabled-text": "#666666",
         "dark-primary-button-background": "#E63946",
