@@ -4,6 +4,7 @@
 
 body {
   font-weight: 500;
+  touch-action: manipulation;
 }
 
 h1,
