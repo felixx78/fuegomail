@@ -8,8 +8,7 @@ function Home() {
       <div className="pt-0 md:pt-8 lg:pt-20">
         <h1 className="mb-4">{intl.formatMessage({ id: "home.title" })}</h1>
         <p className="text-secondary-text dark:text-dark-secondary-text max-w-[600px]">
-          Secure, customizable, and built for the modern user. Experience the
-          freedom of open-source email management with FuegoMail.
+          {intl.formatMessage({ id: "home.subtitle" })}
         </p>
       </div>
 
