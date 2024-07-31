@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
-import ThemeToggler from "../components/ThemeToggler";
+import Header from "../components/Header";
 
 function PrivateLayout() {
   return (
     <RequireAuth>
       <div className="relative min-h-svh bg-background text-primary-text dark:bg-dark-background dark:text-dark-primary-text">
-        <div className="absolute right-6 top-3">
-          <ThemeToggler />
+        <Header />
+        <div className="px-4">
+          <Outlet />
         </div>
-        <Outlet />
       </div>
     </RequireAuth>
   );
