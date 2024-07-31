@@ -7,7 +7,7 @@ function Inbox() {
     <div>
       <h1 className="mb-8 ml-8">Inbox</h1>
       <div className="ml-auto mr-0 px-2 md:w-[80%]">
-        <div>
+        <div className="divide-y divide-border-color dark:divide-dark-border-color">
           {mails.map((mail) => (
             <Link
               to="/"
