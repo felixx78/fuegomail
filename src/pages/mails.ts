@@ -26,6 +26,7 @@ const testEmails = [
     sender: {
       name: "Support Team",
       email: "support@example.com",
+      icon: "/icon.svg",
     },
     recipient: {
       name: "Vadym Petrenko",
