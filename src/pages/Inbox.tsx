@@ -29,7 +29,7 @@ function Inbox() {
               <div className="flex-shrink-1 w-full truncate text-sm text-secondary-text dark:text-dark-secondary-text md:max-w-[60%] md:text-base">
                 {mail.snippet}
               </div>
-              <div className="absolute right-3 top-5 flex-shrink-0 -translate-y-1/2 text-sm sm:-translate-y-0 md:static md:right-4 md:top-1/2 md:px-4 md:text-base">
+              <div className="absolute right-3 top-5 flex-shrink-0 -translate-y-1/2 text-sm sm:-translate-y-0 md:static md:right-4 md:top-1/2 md:w-[200px] md:px-4 md:text-base">
                 {dayjs(mail.timestamp).format("MMMM D, YYYY h:mm A")}
               </div>
             </Link>
