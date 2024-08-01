@@ -25,11 +25,11 @@ async function signUp(req: Request, res: Response) {
 
   if (!!find.length) return res.status(400).json("Username is taken");
 
-  const hashedPassowrd = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   await client.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
     username,
-    hashedPassowrd,
+    hashedPassword,
   ]);
 
   const refreshToken = await generateToken({ username }, "refresh");
