@@ -40,6 +40,7 @@ function Input({
           <div className="relative">
             <input
               {...field}
+              autoCorrect="none"
               className={clsx(
                 "w-full rounded bg-secondary-background py-1 pl-2 text-primary-text outline-none",
                 type === "password" ? "pr-10" : "pr-2",
