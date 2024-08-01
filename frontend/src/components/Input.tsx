@@ -25,7 +25,7 @@ function Input({
 }: Props) {
   const intl = useIntl();
 
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   return (
     <Controller
