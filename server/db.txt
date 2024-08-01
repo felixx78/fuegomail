@@ -1,0 +1,8 @@
+CREATE TABLE email (
+    id SERIAL PRIMARY KEY,
+    receiver VARCHAR(255) NOT NULL,
+    sender_name VARCHAR(255),
+    sender_email VARCHAR(255) NOT NULL,
+    text TEXT,
+    time TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
