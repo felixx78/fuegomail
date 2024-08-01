@@ -1,13 +1,16 @@
 import express, { Request, Response, Application } from "express";
-import dotenv from "dotenv";
-
-dotenv.config();
+import client from "./db";
+import cors from "cors";
 
 const app: Application = express();
 const port = 3000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to Express & TypeScript Server");
+app.use(cors());
+app.use(express.json());
+
+app.get("/", async (req: Request, res: Response) => {
+  const { rows: emails } = await client.query("SELECT * FROM email");
+  res.send(emails);
 });
 
 app.listen(port, () => {
