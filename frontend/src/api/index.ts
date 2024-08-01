@@ -2,4 +2,5 @@ import axios from "axios";
 
 const apiClient = axios.create({ baseURL: "http://localhost:3000" });
 
-export default apiClient;
+const { get, post, put, delete: destroy } = apiClient;
+export default { get, post, put, destroy };
