@@ -32,19 +32,14 @@ const letterColors = {
 function UserIcon({ name }: { name: string }) {
   if (!name.length) return <DefaultUserIcon />;
 
-  const initals = name
-    .split(" ")
-    .slice(0, 1)
-    .map((i) => i[0].toUpperCase());
-
   return (
     <div
       className="w-[35px] rounded-full py-1 text-center text-primary-text"
       style={{
-        backgroundColor: letterColors[initals[0] as keyof typeof letterColors],
+        backgroundColor: letterColors[name[0] as keyof typeof letterColors],
       }}
     >
-      {initals}
+      {name[0]}
     </div>
   );
 }
