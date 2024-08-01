@@ -8,13 +8,12 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json("No token provided");
   }
 
-  jwt.verify(token, process.env.ACCESS_SECRET!, (err, decoded) => {
-    if (err) {
-      return res.status(403).json("Invalid token");
-    }
-
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_SECRET!);
     req.user = decoded as { username: string };
     next();
-  });
+  } catch (e) {
+    return res.status(401).json("Invalid token");
+  }
 }
 export default authMiddleware;
