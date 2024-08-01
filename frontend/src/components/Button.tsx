@@ -7,9 +7,17 @@ type Props = {
   type: "button" | "submit";
   color?: "light" | "dark";
   fullWidth?: boolean;
+  mb?: string;
 };
 
-function Button({ label, isLoading, type, color = "dark", fullWidth }: Props) {
+function Button({
+  label,
+  isLoading,
+  type,
+  color = "dark",
+  fullWidth,
+  mb,
+}: Props) {
   return (
     <button
       disabled={isLoading}
@@ -21,6 +29,7 @@ function Button({ label, isLoading, type, color = "dark", fullWidth }: Props) {
           : "bg-background text-primary-text",
         fullWidth ? "w-full" : "px-6",
       )}
+      style={{ marginBottom: mb }}
     >
       {label}
       {isLoading && <Spinner />}
