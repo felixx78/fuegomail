@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import mails from "./mails";
 import { Link } from "react-router-dom";
-import DefaultUserIcon from "../components/DefaultUserIcon";
+import UserIcon from "../components/UserIcon";
 
 function Inbox() {
   return (
@@ -14,30 +14,33 @@ function Inbox() {
             className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.read ? "bg-secondary-background dark:bg-dark-secondary-background" : "bg-border-color dark:bg-dark-highlighted-background"}`}
             key={mail.id}
           >
-            <div
-              className="mb-2 flex flex-shrink-0 items-center gap-2 md:mb-0"
-              title={mail.sender.name}
-            >
-              {mail.sender.icon ? (
-                <img src={mail.sender.icon} width={35} height={35} alt="" />
-              ) : (
-                <DefaultUserIcon />
-              )}
-              <p className="truncate md:w-[10%] md:min-w-[140px]">
-                {mail.sender.name}
-              </p>
+            <div className="flex flex-shrink-0 justify-between">
+              <div
+                className="mb-2 flex flex-shrink-0 items-center gap-2 sm:pt-0 md:mb-0"
+                title={mail.sender.name}
+              >
+                <UserIcon name={mail.sender.name} />
+                <p className="truncate md:w-[10%] md:min-w-[140px]">
+                  {mail.sender.name}
+                </p>
+              </div>
+
+              <div className="flex-shrink-0 text-xs md:hidden">
+                {dayjs(mail.timestamp).format("MMMM D")}
+              </div>
             </div>
+
             <div
               className="flex-shrink-0 truncate text-[15px] md:w-[18%] md:min-w-[160px] md:px-4 md:text-base"
               title={mail.subject}
             >
               {mail.subject}
             </div>
-            <div className="flex-shrink-1 w-full truncate text-sm text-secondary-text dark:text-dark-secondary-text md:max-w-[60%] md:text-base">
+            <div className="flex-shrink-1 w-full truncate text-sm text-secondary-text dark:text-dark-secondary-text sm:text-xs md:max-w-[60%] md:text-base">
               {mail.snippet}
             </div>
-            <div className="absolute right-3 top-5 flex-shrink-0 -translate-y-1/2 text-sm sm:-translate-y-0 md:static md:right-4 md:top-1/2 md:w-[200px] md:px-4 md:text-base">
-              {dayjs(mail.timestamp).format("MMMM D, YYYY h:mm A")}
+            <div className="hidden w-[160px] flex-shrink-0 px-4 text-base md:block">
+              {dayjs(mail.timestamp).format("MMMM D, h:mm A")}
             </div>
           </Link>
         ))}
