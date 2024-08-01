@@ -57,7 +57,7 @@ function SignInForm() {
   return (
     <form
       onSubmit={handleSubmit(handleOnSubmit)}
-      className="mx-auto max-w-[400px] space-y-4 rounded-md bg-dark-secondary-background p-4"
+      className="mx-auto max-w-[400px] space-y-4 rounded-md bg-dark-secondary-background p-6"
     >
       <Input
         control={control}
