@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import Button from "../Button";
 import Auth from "../../api/auth";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 type FormData = {
@@ -93,7 +93,17 @@ function SignUpForm() {
         mb="30px"
         error={errors?.confirmPassword}
       />
-      <Button isLoading={isLoading} type="submit" fullWidth label="Continue" />
+      <Button
+        isLoading={isLoading}
+        type="submit"
+        fullWidth
+        label="Continue"
+        mb="20px"
+      />
+
+      <Link className="text-dark-secondary-text hover:underline" to="/sign-in">
+        Have an Account?
+      </Link>
     </form>
   );
 }

@@ -3,7 +3,7 @@ import Input from "../Input";
 import { useIntl } from "react-intl";
 import Button from "../Button";
 import Auth from "../../api/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 type FormData = {
@@ -73,7 +73,17 @@ function SignInForm() {
         error={errors?.password}
         mb="30px"
       />
-      <Button isLoading={isLoading} type="submit" fullWidth label="Continue" />
+      <Button
+        isLoading={isLoading}
+        type="submit"
+        fullWidth
+        label="Continue"
+        mb="20px"
+      />
+
+      <Link className="text-dark-secondary-text hover:underline" to="/sign-up">
+        Don't have an Account?
+      </Link>
     </form>
   );
 }
