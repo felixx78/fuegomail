@@ -1,4 +1,6 @@
 {
   "home.title": "Open-Source Email Platform",
-  "home.subtitle": "Secure, customizable, and built for the modern user. Experience the freedom of open-source email management with FuegoMail."
+  "home.subtitle": "Secure, customizable, and built for the modern user. Experience the freedom of open-source email management with FuegoMail.",
+  "inbox": "Inbox",
+  "settings": "Settings"
 }
