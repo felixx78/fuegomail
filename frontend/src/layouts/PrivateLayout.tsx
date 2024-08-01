@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
-import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 function PrivateLayout() {
