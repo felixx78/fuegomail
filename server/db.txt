@@ -1,5 +1,5 @@
 CREATE TABLE email (
-    id SERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     receiver VARCHAR(255) NOT NULL,
     sender_name VARCHAR(255),
     sender_email VARCHAR(255) NOT NULL,
