@@ -3,6 +3,8 @@ CREATE TABLE email (
     receiver VARCHAR(255) NOT NULL,
     sender_name VARCHAR(255),
     sender_email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255),
+    readed BOOLEAN DEFAULT FALSE,
     text TEXT,
     time TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
