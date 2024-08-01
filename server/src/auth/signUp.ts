@@ -36,7 +36,7 @@ async function signUp(req: Request, res: Response) {
   const accessToken = await generateToken({ username }, "access");
 
   setTokenCookie(res, refreshToken);
-  res.send({ username, token: accessToken });
+  res.json({ username, token: accessToken });
 }
 
 export default [validateSchema(schema), signUp];
