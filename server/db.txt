@@ -6,6 +6,7 @@ CREATE TABLE email (
     subject VARCHAR(255),
     readed BOOLEAN DEFAULT FALSE,
     text TEXT,
+    html TEXT,
     time TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
