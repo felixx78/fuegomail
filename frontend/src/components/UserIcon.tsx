@@ -34,12 +34,12 @@ function UserIcon({ name }: { name: string }) {
 
   const initals = name
     .split(" ")
-    .slice(0, 2)
+    .slice(0, 1)
     .map((i) => i[0].toUpperCase());
 
   return (
     <div
-      className="w-[35px] rounded-full p-1 text-center text-primary-text"
+      className="w-[35px] rounded-full py-1 text-center text-primary-text"
       style={{
         backgroundColor: letterColors[initals[0] as keyof typeof letterColors],
       }}
