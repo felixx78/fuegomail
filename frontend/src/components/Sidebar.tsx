@@ -35,7 +35,7 @@ function Sidebar() {
     <aside
       onClick={() => dispatch(menuActions.toggle())}
       style={{ display: isOpen ? "block" : "none" }}
-      className="absolute z-10 hidden min-h-svh w-[200px] flex-shrink-0 border-r border-dark-border-color lg:static lg:!block"
+      className="absolute z-10 hidden min-h-svh w-[200px] flex-shrink-0 lg:static lg:!block"
     >
       <div className="fixed z-10 flex h-svh w-[200px] flex-col bg-background dark:bg-dark-background">
         <div className="mb-8 flex justify-center py-4">
