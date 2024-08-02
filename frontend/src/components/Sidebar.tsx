@@ -20,23 +20,40 @@ function Sidebar() {
   const intl = useIntl();
   const location = useLocation();
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/sign-in";
+    window.location.reload();
+  };
+
   return (
     <aside className="hidden min-h-svh w-[200px] flex-shrink-0 border-r border-dark-border-color lg:block">
-      <div className="mb-8 flex justify-center py-4">
-        <Logo />
-      </div>
+      <div className="fixed flex h-svh w-[200px] flex-col">
+        <div className="mb-8 flex justify-center py-4">
+          <Logo />
+        </div>
 
-      <div className="space-y-2">
-        {items.map((i) => (
-          <Link
-            className={`flex w-full items-center gap-2 rounded py-2 pl-4 ${location.pathname.startsWith(i.href) ? "bg-primary text-dark-primary-text dark:bg-dark-hover-link-color" : ""}`}
-            to={i.href}
-            key={i.id}
-          >
-            {i.icon}
-            {intl.formatMessage({ id: i.id })}
-          </Link>
-        ))}
+        <div className="space-y-2">
+          {items.map((i) => (
+            <Link
+              className={`flex w-full items-center gap-2 rounded py-2 pl-4 ${location.pathname.startsWith(i.href) ? "bg-primary text-dark-primary-text dark:bg-dark-hover-link-color" : ""}`}
+              to={i.href}
+              key={i.id}
+            >
+              {i.icon}
+              {intl.formatMessage({ id: i.id })}
+            </Link>
+          ))}
+        </div>
+
+        <div className="h-full flex-1"></div>
+
+        <button
+          onClick={handleLogout}
+          className="w-full cursor-pointer bg-highlighted-background py-2 dark:bg-dark-highlighted-background"
+        >
+          Logout
+        </button>
       </div>
     </aside>
   );
