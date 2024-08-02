@@ -49,6 +49,7 @@ function SignUpForm() {
       const data = await Auth.signUp(formData);
       localStorage.setItem("user", JSON.stringify(data));
       navigate("/inbox");
+      window.location.reload();
     } catch (e: any) {
       const error = e.response.data;
 
