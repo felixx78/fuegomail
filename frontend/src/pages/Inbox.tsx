@@ -37,7 +37,7 @@ function Inbox() {
         <p className="text-center text-3xl">No Mails</p>
       )}
 
-      <div className="mb-4 divide-y divide-border-color dark:divide-dark-border-color">
+      <div className="mb-4 divide-y divide-background dark:divide-dark-border-color">
         {emails.content.map((mail) => (
           <Link
             to={`/inbox/${mail.id}?page=${page}`}
