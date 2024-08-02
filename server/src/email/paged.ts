@@ -9,12 +9,22 @@ async function paged(req: Request, res: Response) {
   const offset = (page - 1) * pageSize;
 
   try {
-    const { rows: emails } = await client.query(
+    const result = await client.query(
       "SELECT * FROM email WHERE receiver = $1 ORDER BY time DESC LIMIT $2 OFFSET $3",
       [req.user!.username + "@fuegomail.org", pageSize, offset]
     );
 
-    res.json(emails);
+    const formatedEmails = result.rows.map((i) => ({
+      id: i.id,
+      sender_name: i.sender_name,
+      sender_email: i.sender_email,
+      subject: i.subject,
+      snippet: i.text.split(" ").slice(0, 50).join(" "),
+      time: i.time,
+      readed: i.readed,
+    }));
+
+    res.json({ content: formatedEmails, rowCount: result.rowCount });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
