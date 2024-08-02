@@ -32,7 +32,7 @@ function Home() {
         ) : (
           <Link
             to="/inbox"
-            className="rounded-full bg-primary-button-background px-8 py-2 text-dark-primary-text"
+            className="rounded-full bg-primary-button-background px-8 py-3 text-dark-primary-text"
           >
             Go to app
           </Link>
