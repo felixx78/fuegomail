@@ -34,7 +34,7 @@ function UserIcon({ name }: { name: string }) {
 
   return (
     <div
-      className="w-[35px] rounded-full py-1 text-center text-primary-text"
+      className="inline-flex h-[35px] w-[35px] items-center justify-center rounded-full text-primary-text"
       style={{
         backgroundColor: letterColors[name[0] as keyof typeof letterColors],
       }}
