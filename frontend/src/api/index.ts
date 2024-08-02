@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const apiClient = axios.create({ baseURL: "http://localhost:3000" });
+const apiClient = axios.create({
+  baseURL: "http://localhost:3000",
+  withCredentials: true,
+});
 
 const storedUser = localStorage.getItem("user");
 const user = storedUser && (JSON.parse(storedUser) as { token: string });
