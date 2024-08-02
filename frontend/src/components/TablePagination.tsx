@@ -19,14 +19,14 @@ function TablePagination({ rowCount, rowPerPage, page, onPageChange }: Props) {
       <div className="flex gap-2">
         <button
           onClick={() => onPageChange(page - 1)}
-          className="cursor-pointer text-disabled-text disabled:cursor-default disabled:text-dark-disabled-text"
+          className="cursor-pointer text-dark-disabled-text disabled:cursor-default disabled:text-disabled-text dark:text-disabled-text dark:disabled:text-dark-disabled-text"
           disabled={page === 1}
         >
           <CaretLeft size={26} />
         </button>
         <button
           onClick={() => onPageChange(page + 1)}
-          className="cursor-pointer text-disabled-text disabled:cursor-default disabled:text-dark-disabled-text"
+          className="cursor-pointer text-dark-disabled-text disabled:cursor-default disabled:text-disabled-text dark:text-disabled-text dark:disabled:text-dark-disabled-text"
           disabled={seenTo === rowCount}
         >
           <CaretRight size={26} />
