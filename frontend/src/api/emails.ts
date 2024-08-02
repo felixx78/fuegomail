@@ -9,7 +9,7 @@ type Email = {
   time: string;
 };
 
-type EmailList = Array<Email & { snippet: string }>;
+export type EmailList = Array<Email & { snippet: string }>;
 type EmailFull = Email & { html: string; text: string };
 
 const Emails = {
@@ -19,6 +19,7 @@ const Emails = {
       rowCount: number;
     }>,
   byId: (id: string) => get(`/email/${id}`) as Promise<EmailFull>,
+  mark: (id: string) => get(`/email/mark/${id}`),
 };
 
 export default Emails;

@@ -1,13 +1,24 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { ArrowLeft } from "@phosphor-icons/react";
 import UserIcon from "../components/UserIcon";
-import { useQuery } from "react-query";
-import Emails from "../api/emails";
+import { useQuery, useQueryClient } from "react-query";
+import Emails, { EmailList } from "../api/emails";
 import DOMPurify from "dompurify";
 import Spinner from "../components/Spinner";
+import { useEffect } from "react";
 
 function Email() {
   const { id } = useParams();
+
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "");
+
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   if (!id) return <p></p>;
@@ -18,11 +29,32 @@ function Email() {
     retry: 1,
   });
 
+  useEffect(() => {
+    (async () => {
+      if (data && !data.readed) {
+        await Emails.mark(data.id);
+        if (page) {
+          const cached: { content: EmailList } | undefined =
+            queryClient.getQueryData(["emails", page]);
+          if (!cached) return;
+          const cachedContentCopy = [...cached.content];
+          const index = cachedContentCopy.findIndex((i) => i.id === data.id);
+          cachedContentCopy[index].readed = true;
+          queryClient.setQueryData(["emails", page], {
+            ...cached,
+            content: cachedContentCopy,
+          });
+        }
+        await queryClient.invalidateQueries("emails");
+      }
+    })();
+  }, [data]);
+
   if (error)
     return (
       <div className="flex h-[50vh] flex-col items-center justify-center">
         <p className="mb-4 text-4xl">Not found</p>
-        <Link to="/inbox" className="hover:underline">
+        <Link to={`/inbox?page=${page}`} className="hover:underline">
           Go back
         </Link>
       </div>
@@ -37,7 +69,7 @@ function Email() {
         <div className="text-primary-text">
           <div className="mb-4">
             <button
-              onClick={() => navigate("/inbox")}
+              onClick={() => navigate(`/inbox?page=${page}`)}
               className="cursor-pointer"
             >
               <ArrowLeft size={30} />

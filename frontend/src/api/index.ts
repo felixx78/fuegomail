@@ -30,6 +30,11 @@ apiClient.interceptors.response.use(
           "user",
           JSON.stringify({ user: oldUser, token: newToken }),
         );
+        //@ts-ignore
+        apiClient.interceptors.request.use((config) => ({
+          ...config,
+          headers: { Authorization: newToken },
+        }));
         originalRequest.headers["Authorization"] = newToken;
         return apiClient(originalRequest);
       } catch (e) {

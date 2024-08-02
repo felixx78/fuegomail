@@ -40,7 +40,7 @@ function Inbox() {
       <div className="mb-4 divide-y divide-border-color dark:divide-dark-border-color">
         {emails.content.map((mail) => (
           <Link
-            to={`/inbox/${mail.id}`}
+            to={`/inbox/${mail.id}?page=${page}`}
             className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.readed ? "bg-secondary-background dark:bg-dark-secondary-background" : "bg-border-color dark:bg-dark-highlighted-background"}`}
             key={mail.id}
           >
