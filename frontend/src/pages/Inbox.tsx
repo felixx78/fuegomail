@@ -46,7 +46,7 @@ function Inbox() {
           >
             <div className="flex flex-shrink-0 justify-between md:w-[22%]">
               <div
-                className="mb-2 flex w-[80%] flex-shrink-0 items-center gap-2 sm:pt-0 md:mb-0 md:w-full"
+                className="mb-2 flex w-[80%] flex-shrink-0 items-center gap-4 sm:pt-0 md:mb-0 md:w-full"
                 title={mail.sender_name || mail.sender_email}
               >
                 <UserIcon name={mail.sender_name} />
