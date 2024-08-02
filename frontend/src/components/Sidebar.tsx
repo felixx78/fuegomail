@@ -2,6 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import { useIntl } from "react-intl";
 import { Envelope, Gear } from "@phosphor-icons/react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { menuActions } from "../redux/menuReducer";
 
 const items = [
   {
@@ -19,6 +22,8 @@ const items = [
 function Sidebar() {
   const intl = useIntl();
   const location = useLocation();
+  const isOpen = useSelector((root: RootState) => root.menu);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -27,8 +32,12 @@ function Sidebar() {
   };
 
   return (
-    <aside className="hidden min-h-svh w-[200px] flex-shrink-0 border-r border-dark-border-color lg:block">
-      <div className="fixed flex h-svh w-[200px] flex-col">
+    <aside
+      onClick={() => dispatch(menuActions.toggle())}
+      style={{ display: isOpen ? "block" : "none" }}
+      className="absolute z-10 hidden min-h-svh w-[200px] flex-shrink-0 border-r border-dark-border-color lg:static lg:!block"
+    >
+      <div className="fixed z-10 flex h-svh w-[200px] flex-col bg-background dark:bg-dark-background">
         <div className="mb-8 flex justify-center py-4">
           <Logo />
         </div>
@@ -55,6 +64,7 @@ function Sidebar() {
           Logout
         </button>
       </div>
+      <div className="fixed inset-0 z-0 bg-black opacity-35 lg:hidden" />
     </aside>
   );
 }
