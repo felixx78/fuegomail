@@ -10,13 +10,12 @@ type Props = {
 function TablePagination({ rowCount, rowPerPage, page, onPageChange }: Props) {
   if (rowCount === 0) return;
 
-  const total = rowCount * page;
-  const seenTo = rowPerPage * page > total ? total : rowPerPage * page;
-  const seenFrom = seenTo - page >= 0 ? 1 : seenTo - page;
+  const seenFrom = (page - 1) * rowPerPage + 1;
+  const seenTo = Math.min(page * rowPerPage, rowCount);
 
   return (
     <div className="flex gap-4">
-      <p>{`${seenFrom} - ${seenTo} of ${total}`}</p>
+      <p>{`${seenFrom} - ${seenTo} of ${rowCount}`}</p>
       <div className="flex gap-2">
         <button
           onClick={() => onPageChange(page - 1)}
@@ -28,7 +27,7 @@ function TablePagination({ rowCount, rowPerPage, page, onPageChange }: Props) {
         <button
           onClick={() => onPageChange(page + 1)}
           className="cursor-pointer text-disabled-text disabled:cursor-default disabled:text-dark-disabled-text"
-          disabled={seenTo === total}
+          disabled={seenTo === rowCount}
         >
           <CaretRight size={26} />
         </button>
