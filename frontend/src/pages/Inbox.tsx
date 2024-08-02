@@ -1,32 +1,56 @@
 import dayjs from "dayjs";
-import mails from "./mails";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import UserIcon from "../components/UserIcon";
+import { useQuery } from "react-query";
+import Emails from "../api/emails";
+import Spinner from "../components/Spinner";
+import { useEffect, useState } from "react";
+import TablePagination from "../components/TablePagination";
 
 function Inbox() {
+  const { data: emails, isLoading } = useQuery({
+    queryKey: ["emails"],
+    queryFn: () => Emails.paged(1),
+  });
+
+  const [rowCount, setRowCount] = useState(0);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = parseInt(searchParams.get("page") || "1") || 1;
+  const setPage = (v: number) => {
+    setSearchParams({ ...searchParams, page: String(v) });
+  };
+
+  useEffect(() => {
+    if (emails) setRowCount(emails.rowCount);
+  }, [emails]);
+
+  if (!emails) return <Spinner screen />;
+
   return (
     <div>
       <h1 className="mb-8 ml-4">Inbox</h1>
-      <div className="divide-y divide-border-color dark:divide-dark-border-color">
-        {mails.map((mail) => (
+      <div className="mb-4 divide-y divide-border-color dark:divide-dark-border-color">
+        {emails.content.map((mail) => (
           <Link
             to={`/inbox/${mail.id}`}
-            className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.read ? "bg-secondary-background dark:bg-dark-secondary-background" : "bg-border-color dark:bg-dark-highlighted-background"}`}
+            className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.readed ? "bg-secondary-background dark:bg-dark-secondary-background" : "bg-border-color dark:bg-dark-highlighted-background"}`}
             key={mail.id}
           >
-            <div className="flex flex-shrink-0 justify-between">
+            <div className="flex flex-shrink-0 justify-between md:w-[22%]">
               <div
-                className="mb-2 flex flex-shrink-0 items-center gap-2 sm:pt-0 md:mb-0"
-                title={mail.sender.name}
+                className="mb-2 flex w-[80%] flex-shrink-0 items-center gap-2 sm:pt-0 md:mb-0 md:w-full"
+                title={mail.sender_name || mail.sender_email}
               >
-                <UserIcon name={mail.sender.name} />
-                <p className="truncate md:w-[10%] md:min-w-[140px]">
-                  {mail.sender.name}
+                <UserIcon name={mail.sender_name} />
+                <p className="truncate">
+                  {mail.sender_name || mail.sender_email}
                 </p>
               </div>
 
               <div className="flex-shrink-0 text-xs md:hidden">
-                {dayjs(mail.timestamp).format("MMMM D")}
+                {dayjs(mail.time).format("MMMM D")}
               </div>
             </div>
 
@@ -39,11 +63,20 @@ function Inbox() {
             <div className="flex-shrink-1 w-full truncate text-sm text-secondary-text dark:text-dark-secondary-text sm:text-xs md:max-w-[60%] md:text-base">
               {mail.snippet}
             </div>
-            <div className="hidden w-[160px] flex-shrink-0 px-4 text-base md:block">
-              {dayjs(mail.timestamp).format("MMMM D, h:mm A")}
+            <div className="hidden w-[170px] flex-shrink-0 px-4 text-base md:block">
+              {dayjs(mail.time).format("MMMM D, h:mm A")}
             </div>
           </Link>
         ))}
+      </div>
+
+      <div className="flex justify-end pr-4">
+        <TablePagination
+          rowCount={rowCount}
+          rowPerPage={20}
+          page={page}
+          onPageChange={setPage}
+        />
       </div>
     </div>
   );
