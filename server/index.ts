@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import authRouter from "./src/auth";
 import authMiddleware from "./src/authMiddleware";
 import emailRouter from "./src/email";
@@ -18,6 +19,7 @@ declare global {
 }
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/auth", authRouter);
