@@ -8,12 +8,14 @@ import PublicLayout from "./layouts/PublicLayout.tsx";
 import PrivateLayout from "./layouts/PrivateLayout.tsx";
 import { IntlProvider } from "react-intl";
 import messages_en from "./locales/messages_en.json";
+import messages_es from "./locales/messages_es.json";
 import { Provider, useSelector } from "react-redux";
 import store, { RootState } from "./redux/store.ts";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const messages = {
   en: messages_en,
+  es: messages_es,
 };
 
 const router = createBrowserRouter([

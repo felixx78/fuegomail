@@ -1,0 +1,10 @@
+{
+  "home.title": "Plataforma de Correo Electrónico de Código Abierto",
+  "home.subtitle": "Seguro, personalizable y construido para el usuario moderno. Experimenta la libertad de la gestión de correos electrónicos de código abierto con FuegoMail.",
+  "inbox": "Bandeja de entrada",
+  "settings": "Configuración",
+  "emailOrUsername": "Correo electrónico o nombre de usuario",
+  "password": "Contraseña",
+  "confirmPassword": "Confirmar contraseña",
+  "required": "Requerido"
+}
