@@ -36,10 +36,11 @@ function UserIcon({ name }: { name: string }) {
     <div
       className="inline-flex h-[35px] w-[35px] items-center justify-center rounded-full text-primary-text"
       style={{
-        backgroundColor: letterColors[name[0] as keyof typeof letterColors],
+        backgroundColor:
+          letterColors[name[0].toUpperCase() as keyof typeof letterColors],
       }}
     >
-      {name[0]}
+      {name[0].toUpperCase()}
     </div>
   );
 }
