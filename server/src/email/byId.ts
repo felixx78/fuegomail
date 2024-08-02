@@ -6,7 +6,7 @@ async function byId(req: Request, res: Response) {
     const id = req.params.id;
 
     const result = await client.query(
-      "SELECT * from email WHERE id = $1 and receiver = $2",
+      "SELECT * from email WHERE id = $1 AND receiver = $2",
       [id, req.user!.username + "@fuegomail.org"]
     );
 
