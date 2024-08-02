@@ -10,6 +10,7 @@ type Email = {
 };
 
 type EmailList = Array<Email & { snippet: string }>;
+type EmailFull = Email & { html: string; text: string };
 
 const Emails = {
   paged: (page: number) =>
@@ -17,6 +18,7 @@ const Emails = {
       content: EmailList;
       rowCount: number;
     }>,
+  byId: (id: string) => get(`/email/${id}`) as Promise<EmailFull>,
 };
 
 export default Emails;
