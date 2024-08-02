@@ -1,19 +1,39 @@
-import { useNavigate, useParams } from "react-router-dom";
-import emails from "./mails";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "@phosphor-icons/react";
 import UserIcon from "../components/UserIcon";
+import { useQuery } from "react-query";
+import Emails from "../api/emails";
+import DOMPurify from "dompurify";
+import Spinner from "../components/Spinner";
 
 function Email() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const data = emails.find((i) => i.id === id);
+  if (!id) return <p></p>;
 
-  if (!data) return;
+  const { data, error } = useQuery({
+    queryKey: ["email-by-id", id],
+    queryFn: () => Emails.byId(id),
+    retry: 1,
+  });
+
+  if (error)
+    return (
+      <div className="flex h-[50vh] flex-col items-center justify-center">
+        <p className="mb-4 text-4xl">Not found</p>
+        <Link to="/inbox" className="hover:underline">
+          Go back
+        </Link>
+      </div>
+    );
+
+  if (!data) return <Spinner screen />;
+  const sanitizedHtml = DOMPurify.sanitize(data.html);
 
   return (
     <div className="pb-4">
-      <div className="mx-auto h-[90vh] min-h-[300px] max-w-[1200px] rounded bg-white px-5 py-3">
+      <div className="mx-auto h-[90vh] min-h-[300px] max-w-[1200px] overflow-y-auto rounded bg-white px-5 py-3">
         <div className="text-primary-text">
           <div className="mb-4">
             <button
@@ -24,29 +44,18 @@ function Email() {
             </button>
           </div>
 
-          <p className="mb-4 text-3xl">{data?.subject}</p>
+          <p className="mb-4 text-3xl">{data.subject}</p>
 
           <div className="mb-6 flex items-center gap-4">
-            <UserIcon name={data.sender.name} />
+            <UserIcon name={data.sender_name} />
             <div className="text-sm">
-              <p>{`${data.sender.name} <${data.sender.email}>`}</p>
-              <p>to {data.recipient.name}</p>
+              <p>{`${data.sender_name} <${data.sender_email}>`}</p>
             </div>
           </div>
 
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-            numquam porro harum ut pariatur nulla in aut obcaecati, soluta,
-            laboriosam eaque esse adipisci consectetur cumque eligendi ea
-            incidunt, voluptatem deserunt. Lorem, ipsum dolor sit amet
-            consectetur adipisicing elit. Magni numquam porro harum ut pariatur
-            nulla in aut obcaecati, soluta, laboriosam eaque esse adipisci
-            consectetur cumque eligendi ea incidunt, voluptatem deserunt. Lorem,
-            ipsum dolor sit amet consectetur adipisicing elit. Magni numquam
-            porro harum ut pariatur nulla in aut obcaecati, soluta, laboriosam
-            eaque esse adipisci consectetur cumque eligendi ea incidunt,
-            voluptatem deserunt.
-          </p>
+          <div>
+            <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+          </div>
         </div>
       </div>
     </div>
