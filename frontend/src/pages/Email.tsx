@@ -69,7 +69,7 @@ function Email() {
         <div className="text-primary-text">
           <div className="mb-4">
             <button
-              onClick={() => navigate(`/inbox?page=${page}`)}
+              onClick={() => navigate(`/inbox?page=${page || 1}`)}
               className="cursor-pointer"
             >
               <ArrowLeft size={30} />
