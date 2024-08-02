@@ -14,6 +14,13 @@ async function paged(req: Request, res: Response) {
       [req.user!.username + "@fuegomail.org", pageSize, offset]
     );
 
+    const countResult = await client.query(
+      "SELECT COUNT(*) FROM email WHERE receiver = $1",
+      [req.user!.username + "@fuegomail.org"]
+    );
+
+    const totalRows = parseInt(countResult.rows[0].count, 10);
+
     const formatedEmails = result.rows.map((i) => ({
       id: i.id,
       sender_name: i.sender_name,
@@ -24,7 +31,7 @@ async function paged(req: Request, res: Response) {
       readed: i.readed,
     }));
 
-    res.json({ content: formatedEmails, rowCount: result.rowCount });
+    res.json({ content: formatedEmails, rowCount: totalRows });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
