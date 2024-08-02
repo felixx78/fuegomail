@@ -6,15 +6,9 @@ import Emails from "../api/emails";
 import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
 import TablePagination from "../components/TablePagination";
+import clsx from "clsx";
 
 function Inbox() {
-  const { data: emails, isLoading } = useQuery({
-    queryKey: ["emails"],
-    queryFn: () => Emails.paged(1),
-  });
-
-  const [rowCount, setRowCount] = useState(0);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = parseInt(searchParams.get("page") || "1") || 1;
@@ -22,8 +16,15 @@ function Inbox() {
     setSearchParams({ ...searchParams, page: String(v) });
   };
 
+  const { data: emails } = useQuery({
+    queryKey: ["emails", page],
+    queryFn: () => Emails.paged(page),
+  });
+
+  const [rowCount, setRowCount] = useState(0);
+
   useEffect(() => {
-    if (emails) setRowCount(emails.rowCount);
+    if (emails && !rowCount) setRowCount(emails.rowCount);
   }, [emails]);
 
   if (!emails) return <Spinner screen />;
@@ -31,6 +32,11 @@ function Inbox() {
   return (
     <div>
       <h1 className="mb-8 ml-4">Inbox</h1>
+
+      {emails.content.length === 0 && (
+        <p className="text-center text-3xl">No Mails</p>
+      )}
+
       <div className="mb-4 divide-y divide-border-color dark:divide-dark-border-color">
         {emails.content.map((mail) => (
           <Link
@@ -70,7 +76,12 @@ function Inbox() {
         ))}
       </div>
 
-      <div className="flex justify-end pr-4">
+      <div
+        className={clsx(
+          "justify-end pr-4",
+          emails.content.length === 0 ? "hidden" : "flex",
+        )}
+      >
         <TablePagination
           rowCount={rowCount}
           rowPerPage={20}
