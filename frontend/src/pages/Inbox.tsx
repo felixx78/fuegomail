@@ -41,7 +41,7 @@ function Inbox() {
         {emails.content.map((mail) => (
           <Link
             to={`/inbox/${mail.id}?page=${page}`}
-            className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.readed ? "bg-secondary-background dark:bg-dark-secondary-background" : "bg-border-color dark:bg-dark-highlighted-background"}`}
+            className={`relative flex flex-col px-4 py-2 md:flex-row md:items-center ${mail.readed ? "bg-border-color dark:bg-dark-secondary-background" : "bg-secondary-background dark:bg-dark-highlighted-background"}`}
             key={mail.id}
           >
             <div className="flex flex-shrink-0 justify-between md:w-[22%]">
